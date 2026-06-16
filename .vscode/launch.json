@@ -1,0 +1,35 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "FisioterapiaApplication",
+            "request": "launch",
+            "mainClass": "br.com.fisioterapia.usuario.FisioterapiaApplication",
+            "projectName": "usuario"
+        },
+        {
+            "type": "java",
+            "name": "MainVerificaUsuarioPrefeitura",
+            "request": "launch",
+            "mainClass": "br.com.prefeitura.usuario.main.exonerados2.MainVerificaUsuarioPrefeitura",
+            "projectName": "usuario"
+        },
+        {
+            "type": "java",
+            "name": "UsuarioApplication",
+            "request": "launch",
+            "mainClass": "br.com.prefeitura.usuario.UsuarioApplication",
+            "projectName": "usuario"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        }
+    ]
+}
