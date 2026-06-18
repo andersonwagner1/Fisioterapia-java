@@ -3,15 +3,17 @@ package br.com.fisioterapia.usuario.controller;
 
 import jakarta.validation.Valid;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import br.com.fisioterapia.usuario.dto.UsuarioRespostaDTO;
-import br.com.fisioterapia.usuario.model.Prontuario;
 import br.com.fisioterapia.usuario.model.Usuario;
+import br.com.fisioterapia.usuario.service.TokenService;
 import br.com.fisioterapia.usuario.service.UsuarioCadastroDTO;
 import br.com.fisioterapia.usuario.service.UsuarioService;
 
@@ -21,9 +23,11 @@ import br.com.fisioterapia.usuario.service.UsuarioService;
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
+    private final TokenService tokenService;
 
-    public UsuarioController(UsuarioService usuarioService) {
+    public UsuarioController(UsuarioService usuarioService, TokenService tokenService) {
         this.usuarioService = usuarioService;
+        this.tokenService= tokenService;
     }
 
     /**
@@ -35,6 +39,43 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(resposta);
     }
 
+
+     @PostMapping("/autenticacao")
+    public ResponseEntity< Map<String, String>> autenticacao(@RequestBody Usuario usuario) {
+
+
+        if(usuario.getEmail().equals("ADM")){
+              Usuario usuarioaDM = usuarioService.consultarUsuarioAdministrador();
+              //primeiro acesso
+              if(usuarioaDM == null){
+                usuarioaDM = new Usuario();
+                usuarioaDM.setNome("Administrador");
+                usuarioaDM.setEmail("ADM");
+                usuarioaDM.setSenha("123");
+                usuario = usuarioService.salvar(usuarioaDM);
+              }                           
+        }
+
+        Usuario prontuarios = usuarioService.consultarUsuarioSenha(usuario);
+        String token = null;
+        if(prontuarios != null){
+            token = this.tokenService.gerarToken(prontuarios);
+        }
+
+        Map<String, String> resposta = new HashMap<>();
+        resposta.put("token", token);
+
+        return ResponseEntity.ok(resposta);
+
+        
+        
+    }
+
+     @PostMapping("/salvar")
+    public ResponseEntity<Usuario> salvar(@RequestBody Usuario usuario) {
+        usuario = usuarioService.salvar(usuario);
+        return ResponseEntity.ok(usuario);
+    }
 
     @GetMapping("/listar-todos")
     public ResponseEntity<List<Usuario>> listarTodos() {

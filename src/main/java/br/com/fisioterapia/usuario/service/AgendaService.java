@@ -9,14 +9,12 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import br.com.fisioterapia.usuario.dto.AgendamentoDto;
 import br.com.fisioterapia.usuario.dto.AgendamentoRespostaDto;
 import br.com.fisioterapia.usuario.model.Agendamento;
-import br.com.fisioterapia.usuario.model.Prontuario;
 import br.com.fisioterapia.usuario.repository.AgendaRepository;
 import br.com.fisioterapia.usuario.repository.ProntuarioRepository;
 import br.com.fisioterapia.usuario.repository.UsuarioRepository;
@@ -87,7 +85,35 @@ public Date converterData(String dataHora) {
 
          List<AgendamentoRespostaDto> listaAgendaNova = new ArrayList<>();
           for(Agendamento a : listaAgenda){
+                AgendamentoRespostaDto dto = new AgendamentoRespostaDto();
+                dto.setDtInicial(a.getDataHoraInicio());
+                dto.setHoraInicial(obterHoraMinuto(a.getDataHoraInicio()));
+                dto.setHroaFinal(obterHoraMinuto(a.getDataHoraFim()));
+                dto.setIcSituacao(a.getStatus());
+                dto.setId(a.getId());
+                dto.setNome(a.getPaciente().getNome());
+                dto.setProfissional(a.getUsuario().getNome());
+                dto.setTipoSessao(a.getTipoSessao());
+                listaAgendaNova.add(dto);
+          }
+
+          return listaAgendaNova;
+
+
+    }
+
+
+    public List<AgendamentoRespostaDto> listarAgendamentoEmAberto() {
+ 
+          List<Agendamento> listaAgenda = agendaRepository.listarAgendamentoEmAberto();
+
+         List<AgendamentoRespostaDto> listaAgendaNova = new ArrayList<>();
+          for(Agendamento a : listaAgenda){
             AgendamentoRespostaDto dto = new AgendamentoRespostaDto();
+            dto.setProntuarioId(a.getPaciente().getId());
+
+           
+            dto.setDtInicial(a.getDataHoraInicio());
             dto.setHoraInicial(obterHoraMinuto(a.getDataHoraInicio()));
             dto.setHroaFinal(obterHoraMinuto(a.getDataHoraFim()));
             dto.setIcSituacao(a.getStatus());
@@ -99,8 +125,6 @@ public Date converterData(String dataHora) {
           }
 
           return listaAgendaNova;
-
-
     }
 
 

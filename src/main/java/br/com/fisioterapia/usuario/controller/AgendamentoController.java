@@ -57,6 +57,9 @@ public class AgendamentoController {
     }
 
 
-
-    
+    @GetMapping("/listar-agendamento-em-aberto")
+     public ResponseEntity<List<AgendamentoRespostaDto>> listarAgendamentoEmAberto() {
+        List< AgendamentoRespostaDto> agendamento = agendaService.listarAgendamentoEmAberto();       
+        return agendamento != null ? ResponseEntity.ok(agendamento) : ResponseEntity.notFound().build();
+    }
 }

@@ -1,7 +1,6 @@
 package br.com.fisioterapia.usuario.repository;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,4 +15,8 @@ public abstract interface AgendaRepository extends JpaRepository<Agendamento, Lo
 
     @Query("SELECT x from Agendamento x WHERE CAST(x.dataHoraInicio AS localdate) = CAST(:dtFiltro AS localdate) ORDER BY x.dataHoraInicio")
     List<Agendamento> listarDataPorData(@Param("dtFiltro") LocalDateTime localDateTime);
+    
+    
+    @Query("SELECT x from Agendamento x WHERE  dataHoraFim > CURRENT_TIMESTAMP  ORDER BY x.dataHoraInicio")
+    List<Agendamento> listarAgendamentoEmAberto();
 }

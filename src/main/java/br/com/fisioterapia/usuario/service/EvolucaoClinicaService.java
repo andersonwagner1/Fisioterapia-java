@@ -1,12 +1,7 @@
 package br.com.fisioterapia.usuario.service;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
-
-import br.com.fisioterapia.usuario.dto.AgendamentoRespostaDto;
 import br.com.fisioterapia.usuario.model.EvolucaoClinica;
 import br.com.fisioterapia.usuario.repository.EvolucaoClinicaRepository;
 import br.com.fisioterapia.usuario.repository.ProntuarioRepository;
@@ -44,8 +39,4 @@ public class EvolucaoClinicaService {
     public EvolucaoClinica consultarPorId(Long id) {
         return evolucaoClinicaRepository.findById(id).get();
     }
-
-
-
-
 }

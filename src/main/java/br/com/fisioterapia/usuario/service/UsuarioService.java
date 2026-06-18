@@ -3,7 +3,6 @@ package br.com.fisioterapia.usuario.service;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import br.com.fisioterapia.usuario.dto.UsuarioRespostaDTO;
-import br.com.fisioterapia.usuario.model.Prontuario;
 import br.com.fisioterapia.usuario.model.Usuario;
 import br.com.fisioterapia.usuario.model.UsuarioPermissaoTela;
 import br.com.fisioterapia.usuario.repository.UsuarioRepository;
@@ -13,6 +12,9 @@ import jakarta.transaction.Transactional;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+
+
+    
 
     // Injeção via construtor (Melhor prática que @Autowired)
     public UsuarioService(UsuarioRepository usuarioRepository) {
@@ -72,4 +74,22 @@ public class UsuarioService {
     public Usuario consultarPorId(Long id) {
        return usuarioRepository.findById(id).get();
     }
+
+    public Usuario consultarUsuarioSenha(Usuario usuario) {
+      return usuarioRepository.consultarUsuarioSenha(usuario.getEmail(), usuario.getSenha());
+    }
+
+    public Usuario salvar(Usuario usuario) {
+        if(usuario.getId() == 0 || usuario.getId() == null){
+            usuario.setAtivo(true);
+            usuario.setSenha("123456");
+        }
+
+
+      return usuarioRepository.save(usuario);
+    }
+
+	public Usuario consultarUsuarioAdministrador() {
+        return usuarioRepository.consultarUsuarioAdministrador();
+	}
 }

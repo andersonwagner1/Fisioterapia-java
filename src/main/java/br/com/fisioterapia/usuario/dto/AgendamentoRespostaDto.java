@@ -1,7 +1,6 @@
 package br.com.fisioterapia.usuario.dto;
 
-import br.com.fisioterapia.usuario.model.Prontuario;
-import br.com.fisioterapia.usuario.model.Usuario;
+import java.util.Date;
 
 
 public class AgendamentoRespostaDto {
@@ -12,7 +11,9 @@ public class AgendamentoRespostaDto {
     private String tipoSessao;
     private String icSituacao;
     private String nome;
+    private Long prontuarioId;
     private String profissional;
+    private Date dtInicial;
     public Long getId() {
         return id;
     }
@@ -54,6 +55,18 @@ public class AgendamentoRespostaDto {
     }
     public void setProfissional(String profissional) {
         this.profissional = profissional;
+    }
+    public Date getDtInicial() {
+        return dtInicial;
+    }
+    public void setDtInicial(Date dtInicial) {
+        this.dtInicial = dtInicial;
+    }
+    public Long getProntuarioId() {
+        return prontuarioId;
+    }
+    public void setProntuarioId(Long prontuarioId) {
+        this.prontuarioId = prontuarioId;
     }
     
 
