@@ -80,7 +80,7 @@ public class UsuarioService {
     }
 
     public Usuario salvar(Usuario usuario) {
-        if(usuario.getId() == 0 || usuario.getId() == null){
+        if(usuario.getId() == null || usuario.getId() == 0){
             usuario.setAtivo(true);
             usuario.setSenha("123456");
         }

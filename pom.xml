@@ -130,7 +130,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>br.com.prefeitura.usuario.UsuarioApplication</mainClass>
+                    <mainClass>br.com.fisioterapia.usuario.FisioterapiaApplication</mainClass>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
