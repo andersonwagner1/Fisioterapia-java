@@ -21,7 +21,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
+import java.nio.file.Paths;
 @Configuration
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
@@ -38,7 +38,6 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -55,9 +54,13 @@ public class WebConfig implements WebMvcConfigurer {
 	}
 
 	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry arg0) {
-		// TODO Auto-generated method stub
-		
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+	       String caminhoUploads = Paths.get("uploads/capas/").toAbsolutePath().toUri().toString();
+
+        // Mapeia a URL /uploads/capas/** para a pasta física no disco
+        registry.addResourceHandler("/uploads/capas/**")
+                .addResourceLocations(caminhoUploads);
+
 	}
 
 	@Override

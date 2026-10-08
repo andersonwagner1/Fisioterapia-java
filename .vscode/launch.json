@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "JogoApplication",
+            "request": "launch",
+            "mainClass": "br.com.fisioterapia.usuario.JogoApplication",
+            "projectName": "usuario"
+        },
+        {
+            "type": "java",
             "name": "FisioterapiaApplication",
             "request": "launch",
             "mainClass": "br.com.fisioterapia.usuario.FisioterapiaApplication",
